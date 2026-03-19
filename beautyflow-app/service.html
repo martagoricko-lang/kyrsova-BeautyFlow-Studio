@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Service Details</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <a href="index.html" class="back-link">← Back to main page</a>
+
+      <section id="service-page" class="service-page"></section>
+
+      <section class="booking-section">
+        <h2>Book an appointment</h2>
+
+        <form id="booking-form" class="booking-form">
+          <input type="text" id="client-name" placeholder="Your name" />
+
+          <input type="text" id="service-name" readonly />
+
+          <select id="subservice-select">
+            <option value="">Choose service option</option>
+          </select>
+
+          <select id="master-select">
+            <option value="">Choose a master</option>
+          </select>
+
+          <input type="date" id="selected-date" />
+
+          <select id="selected-time">
+            <option value="">Choose time</option>
+          </select>
+
+          <button type="submit">Book appointment</button>
+        </form>
+
+        <p id="booking-result"></p>
+      </section>
+    </div>
+
+    <script type="module" src="service.js"></script>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BeautyFlow Studio</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="hero">
+        <h1>BeautyFlow Studio</h1>
+        <p class="subtitle">
+          Choose a beauty category and explore services, prices and booking
+          options
+        </p>
+      </header>
+
+      <section class="services-section">
+        <h2>Our Services</h2>
+        <div id="services-list" class="services-grid"></div>
+      </section>
+      <section class="offers-section">
+        <button id="open-offers-btn" class="offers-btn">Special offers</button>
+      </section>
+
+      <div id="offers-modal" class="modal hidden">
+        <div class="modal-content">
+          <button id="close-offers-btn" class="close-btn">×</button>
+          <h2>Special offers</h2>
+
+          <div class="offers-list">
+            <div class="offer-card">
+              <h3>Manicure + Pedicure</h3>
+              <p>Perfect care for hands and feet in one visit.</p>
+              <p><strong>Price:</strong> 1500 UAH</p>
+            </div>
+
+            <div class="offer-card">
+              <h3>Lashes + Brows</h3>
+              <p>A complete eye area beauty combo for a fresh look.</p>
+              <p><strong>Price:</strong> 1200 UAH</p>
+            </div>
+
+            <div class="offer-card">
+              <h3>Makeup + Hair Styling</h3>
+              <p>Ideal combo for events, parties and special occasions.</p>
+              <p><strong>Price:</strong> 1900 UAH</p>
+            </div>
+
+            <div class="offer-card">
+    <h3>Laser Combo Package</h3>
+    <p>Underarms + bikini area + upper lip in one special package.</p>
+    <p><strong>Price:</strong> 3500 UAH</p>
+</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
