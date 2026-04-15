@@ -281,3 +281,61 @@ body {
   color: #444;
   line-height: 1.5;
 }
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-btn {
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.profile-btn:hover {
+  transform: scale(1.2);
+}
+.auth-box {
+  max-width: 400px;
+  margin: 60px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.auth-box h2 {
+  text-align: center;
+  color: #d63384;
+}
+
+.auth-box input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.auth-box button {
+  background: #d63384;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.auth-box button:hover {
+  background: #b8256d;
+}
+
+.auth-note {
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+}

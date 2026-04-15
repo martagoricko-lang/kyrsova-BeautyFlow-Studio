@@ -1,3 +1,4 @@
+const profileBtn = document.getElementById("profile-btn");
 import { services } from "../beautyflow-library/index.js";
 
 const servicesList = document.getElementById("services-list");
@@ -13,7 +14,6 @@ function renderServices() {
     card.classList.add("service-card", "service-card-clickable");
 
     card.innerHTML = `
-            <div class="service-icon">${service.image}</div>
             <h3>${service.name}</h3>
             <p><strong>Category:</strong> ${service.category}</p>
             <p><strong>Starting price:</strong> ${service.startingPrice} UAH</p>
@@ -43,3 +43,6 @@ offersModal.addEventListener("click", (event) => {
 });
 
 renderServices();
+profileBtn.addEventListener("click", () => {
+  window.location.href = "auth.html";
+});

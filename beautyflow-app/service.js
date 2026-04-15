@@ -47,7 +47,6 @@ function renderServicePage() {
 
   servicePage.innerHTML = `
         <div class="service-header">
-            <div class="service-icon large-icon">${service.image}</div>
             <div>
                 <h1>${service.name}</h1>
                 <p class="service-category"><strong>Category:</strong> ${service.category}</p>

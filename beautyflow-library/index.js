@@ -4,7 +4,6 @@ export const services = [
     name: "Manicure",
     category: "Nails",
     startingPrice: 700,
-    image: "💅",
     masters: ["Anna"],
     subservices: [
       {
@@ -33,7 +32,6 @@ export const services = [
     name: "Pedicure",
     category: "Nails",
     startingPrice: 950,
-    image: "🦶",
     masters: ["Anna"],
     subservices: [
       {
@@ -61,7 +59,6 @@ export const services = [
     name: "Makeup",
     category: "Face",
     startingPrice: 1200,
-    image: "💄",
     masters: ["Sofia"],
     subservices: [
       {
@@ -89,7 +86,6 @@ export const services = [
     name: "Hair Styling",
     category: "Hair",
     startingPrice: 900,
-    image: "💇‍♀️",
     masters: ["Maria"],
     subservices: [
       {
@@ -117,7 +113,6 @@ export const services = [
     name: "Lashes",
     category: "Lashes",
     startingPrice: 850,
-    image: "👁️",
     masters: ["Maria"],
     subservices: [
       {
@@ -145,7 +140,6 @@ export const services = [
     name: "Brows",
     category: "Brows",
     startingPrice: 500,
-    image: "✨",
     masters: ["Sofia"],
     subservices: [
       {
@@ -173,7 +167,6 @@ export const services = [
     name: "Laser Hair Removal",
     category: "Body",
     startingPrice: 1000,
-    image: "🪒",
     masters: ["Sofia", "Maria"],
     subservices: [
       {
