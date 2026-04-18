@@ -46,3 +46,8 @@ renderServices();
 profileBtn.addEventListener("click", () => {
   window.location.href = "auth.html";
 });
+const bookingsBtn = document.getElementById("bookings-btn");
+
+bookingsBtn.addEventListener("click", () => {
+  window.location.href = "bookings.html";
+});

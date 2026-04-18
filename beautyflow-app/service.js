@@ -146,6 +146,9 @@ bookingForm.addEventListener("submit", (event) => {
     date,
     time,
   );
+  const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+  bookings.push(appointment);
+  localStorage.setItem("bookings", JSON.stringify(bookings));
 
   bookingResult.textContent = `Appointment booked for ${appointment.clientName}: ${appointment.subserviceName} (${appointment.serviceName}) with ${appointment.masterName} on ${appointment.date} at ${appointment.time}.`;
 
