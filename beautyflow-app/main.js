@@ -1,10 +1,22 @@
-const profileBtn = document.getElementById("profile-btn");
 import { services } from "../beautyflow-library/index.js";
+import {
+  offerGenerator,
+  consumeIteratorWithTimeout,
+} from "../beautyflow-library/lab1.js";
 
 const servicesList = document.getElementById("services-list");
+
+const profileBtn = document.getElementById("profile-btn");
+const bookingsBtn = document.getElementById("bookings-btn");
+
 const openOffersButton = document.getElementById("open-offers-btn");
 const closeOffersButton = document.getElementById("close-offers-btn");
 const offersModal = document.getElementById("offers-modal");
+
+const startOffersRotationButton = document.getElementById(
+  "start-offers-rotation-btn",
+);
+const promoOfferText = document.getElementById("promo-offer-text");
 
 function renderServices() {
   servicesList.innerHTML = "";
@@ -28,26 +40,46 @@ function renderServices() {
   });
 }
 
-openOffersButton.addEventListener("click", () => {
-  offersModal.classList.remove("hidden");
-});
+if (profileBtn) {
+  profileBtn.addEventListener("click", () => {
+    window.location.href = "auth.html";
+  });
+}
 
-closeOffersButton.addEventListener("click", () => {
-  offersModal.classList.add("hidden");
-});
+if (bookingsBtn) {
+  bookingsBtn.addEventListener("click", () => {
+    window.location.href = "bookings.html";
+  });
+}
 
-offersModal.addEventListener("click", (event) => {
-  if (event.target === offersModal) {
+if (openOffersButton) {
+  openOffersButton.addEventListener("click", () => {
+    offersModal.classList.remove("hidden");
+  });
+}
+
+if (closeOffersButton) {
+  closeOffersButton.addEventListener("click", () => {
     offersModal.classList.add("hidden");
-  }
-});
+  });
+}
+
+if (offersModal) {
+  offersModal.addEventListener("click", (event) => {
+    if (event.target === offersModal) {
+      offersModal.classList.add("hidden");
+    }
+  });
+}
+
+if (startOffersRotationButton) {
+  startOffersRotationButton.addEventListener("click", () => {
+    const iterator = offerGenerator();
+
+    consumeIteratorWithTimeout(iterator, 6, (item) => {
+      promoOfferText.textContent = item.value;
+    });
+  });
+}
 
 renderServices();
-profileBtn.addEventListener("click", () => {
-  window.location.href = "auth.html";
-});
-const bookingsBtn = document.getElementById("bookings-btn");
-
-bookingsBtn.addEventListener("click", () => {
-  window.location.href = "bookings.html";
-});

@@ -352,3 +352,26 @@ body {
   margin-bottom: 15px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
+.promo-banner {
+  background: linear-gradient(135deg, #ffd6e8, #fff0f6);
+  border-radius: 20px;
+  padding: 28px;
+  text-align: center;
+  margin-bottom: 40px;
+  box-shadow: 0 8px 24px rgba(214, 51, 132, 0.12);
+}
+
+.promo-label {
+  color: #d63384;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.promo-banner h2 {
+  font-size: 30px;
+  color: #222;
+  margin-bottom: 18px;
+}
