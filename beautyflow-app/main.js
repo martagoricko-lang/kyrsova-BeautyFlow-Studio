@@ -1,8 +1,6 @@
 import { services } from "../beautyflow-library/index.js";
-import {
-  offerGenerator,
-  consumeIteratorWithTimeout,
-} from "../beautyflow-library/lab1.js";
+import { offerGenerator } from "../beautyflow-library/generators.js";
+import { consumeIteratorWithTimeout } from "../beautyflow-library/iterators.js";
 
 const servicesList = document.getElementById("services-list");
 
