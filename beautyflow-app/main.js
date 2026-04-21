@@ -74,12 +74,28 @@ if (offersModal) {
 
 if (startOffersRotationButton) {
   startOffersRotationButton.addEventListener("click", () => {
+    startOffersRotationButton.disabled = true;
+    startOffersRotationButton.textContent = "Running...";
+
     const iterator = offerGenerator();
 
     consumeIteratorWithTimeout(iterator, 6, (item) => {
-      promoOfferText.textContent = item.value;
+      promoOfferText.classList.remove("fade");
+
+      setTimeout(() => {
+        promoOfferText.textContent = item.value;
+        promoOfferText.classList.add("fade");
+      }, 50);
     });
+
+    setTimeout(() => {
+      startOffersRotationButton.disabled = false;
+      startOffersRotationButton.textContent = "Start rotating offers";
+    }, 6000);
   });
 }
 
 renderServices();
+
+const initialOffer = offerGenerator().next().value;
+promoOfferText.textContent = initialOffer;
