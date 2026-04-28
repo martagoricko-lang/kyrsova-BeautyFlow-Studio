@@ -7,14 +7,35 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div id="sidebar" class="sidebar">
+      <button id="close-menu" class="close-menu">×</button>
+
+      <h2>Menu</h2>
+
+      <ul>
+        <li onclick="window.location.href = 'index.html'">Home</li>
+        <li onclick="window.location.href = 'service.html?id=1'">Services</li>
+        <li onclick="window.location.href = 'auth.html'">Account</li>
+        <li>Language: EN / UA</li>
+      </ul>
+    </div>
     <div class="container">
       <header class="hero">
         <div class="header-top">
           <h1>BeautyFlow Studio</h1>
 
           <div class="header-buttons">
-            <button id="profile-btn" class="profile-btn">👤</button>
-            <button id="bookings-btn" class="profile-btn">📅</button>
+            <button id="menu-btn" class="menu-btn">☰</button>
+
+            <div class="header-buttons">
+              <button id="profile-btn" class="icon-btn">
+                <img src="icons/user.svg" alt="profile" />
+              </button>
+
+              <button id="bookings-btn" class="icon-btn">
+                <img src="icons/calendar.svg" alt="bookings" />
+              </button>
+            </div>
           </div>
         </div>
 
@@ -23,13 +44,21 @@
           options
         </p>
       </header>
+
       <section class="promo-banner">
         <p class="promo-label">Current special offer</p>
         <h2 id="promo-offer-text">Manicure + Pedicure — 1500 UAH</h2>
-        <button id="start-offers-rotation-btn" class="offers-btn">
-          Start rotating offers
-        </button>
+
+        <div class="promo-buttons">
+          <button id="start-offers-rotation-btn" class="offers-btn">
+            Start rotating offers
+          </button>
+          <button id="stop-offers-rotation-btn" class="offers-btn secondary">
+            Stop
+          </button>
+        </div>
       </section>
+
       <section class="services-section">
         <h2>Our Services</h2>
         <div id="services-list" class="services-grid"></div>

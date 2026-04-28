@@ -390,3 +390,79 @@ body {
     transform: translateY(0);
   }
 }
+.offers-btn.secondary {
+  background-color: #aaa;
+  margin-left: 10px;
+}
+.promo-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.menu-btn {
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.icon-btn img {
+  width: 28px;
+  height: 28px;
+}
+
+/* SIDEBAR */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background: white;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: 0.3s;
+  z-index: 1000;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.close-menu {
+  font-size: 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 15px 0;
+  cursor: pointer;
+}
+.icon-btn img {
+  width: 26px;
+  height: 26px;
+  color: #374690;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.icon-btn:hover img {
+  filter: brightness(0) saturate(100%) invert(35%) sepia(80%) saturate(500%)
+    hue-rotate(320deg);
+}

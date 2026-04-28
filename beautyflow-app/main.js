@@ -11,10 +11,11 @@ const openOffersButton = document.getElementById("open-offers-btn");
 const closeOffersButton = document.getElementById("close-offers-btn");
 const offersModal = document.getElementById("offers-modal");
 
-const startOffersRotationButton = document.getElementById(
-  "start-offers-rotation-btn",
-);
 const promoOfferText = document.getElementById("promo-offer-text");
+const startOffersBtn = document.getElementById("start-offers-rotation-btn");
+const stopOffersBtn = document.getElementById("stop-offers-rotation-btn");
+
+let rotationActive = false;
 
 function renderServices() {
   servicesList.innerHTML = "";
@@ -24,11 +25,11 @@ function renderServices() {
     card.classList.add("service-card", "service-card-clickable");
 
     card.innerHTML = `
-            <h3>${service.name}</h3>
-            <p><strong>Category:</strong> ${service.category}</p>
-            <p><strong>Starting price:</strong> ${service.startingPrice} UAH</p>
-            <p><strong>Available options:</strong> ${service.subservices.length}</p>
-        `;
+      <h3>${service.name}</h3>
+      <p><strong>Category:</strong> ${service.category}</p>
+      <p><strong>Starting price:</strong> ${service.startingPrice} UAH</p>
+      <p><strong>Available options:</strong> ${service.subservices.length}</p>
+    `;
 
     card.addEventListener("click", () => {
       window.location.href = `service.html?id=${service.id}`;
@@ -70,30 +71,58 @@ if (offersModal) {
   });
 }
 
-if (startOffersRotationButton) {
-  startOffersRotationButton.addEventListener("click", () => {
-    startOffersRotationButton.disabled = true;
-    startOffersRotationButton.textContent = "Running...";
+if (startOffersBtn) {
+  startOffersBtn.addEventListener("click", async () => {
+    if (rotationActive) return;
 
-    const iterator = offerGenerator();
+    rotationActive = true;
+    startOffersBtn.disabled = true;
+    startOffersBtn.textContent = "Running...";
 
-    consumeIteratorWithTimeout(iterator, 6, (item) => {
-      promoOfferText.classList.remove("fade");
+    const generator = offerGenerator();
 
-      setTimeout(() => {
-        promoOfferText.textContent = item.value;
-        promoOfferText.classList.add("fade");
-      }, 50);
-    });
+    await consumeIteratorWithTimeout(
+      generator,
+      10,
+      (offer) => {
+        promoOfferText.classList.remove("fade");
 
-    setTimeout(() => {
-      startOffersRotationButton.disabled = false;
-      startOffersRotationButton.textContent = "Start rotating offers";
-    }, 6000);
+        setTimeout(() => {
+          promoOfferText.textContent = offer;
+          promoOfferText.classList.add("fade");
+        }, 50);
+      },
+      () => rotationActive,
+    );
+
+    rotationActive = false;
+    startOffersBtn.disabled = false;
+    startOffersBtn.textContent = "Start rotating offers";
+  });
+}
+
+if (stopOffersBtn) {
+  stopOffersBtn.addEventListener("click", () => {
+    rotationActive = false;
+    startOffersBtn.disabled = false;
+    startOffersBtn.textContent = "Start rotating offers";
   });
 }
 
 renderServices();
 
-const initialOffer = offerGenerator().next().value;
-promoOfferText.textContent = initialOffer;
+const menuBtn = document.getElementById("menu-btn");
+const sidebar = document.getElementById("sidebar");
+const closeMenu = document.getElementById("close-menu");
+
+if (menuBtn) {
+  menuBtn.addEventListener("click", () => {
+    sidebar.classList.add("active");
+  });
+}
+
+if (closeMenu) {
+  closeMenu.addEventListener("click", () => {
+    sidebar.classList.remove("active");
+  });
+}
