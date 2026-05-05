@@ -1,6 +1,5 @@
 import {
-  getServiceById,
-  getMastersByNames,
+  memoizedGetServiceById,
   timeSlots,
   bookAppointment,
 } from "../beautyflow-library/index.js";
@@ -8,7 +7,10 @@ import {
 const params = new URLSearchParams(window.location.search);
 const serviceId = params.get("id");
 
-const service = getServiceById(serviceId);
+import { memoizedGetServiceById } from "../beautyflow-library/index.js";
+
+const service = memoizedGetServiceById(serviceId);
+console.log("Loaded service:", service.name);
 
 const servicePage = document.getElementById("service-page");
 const bookingForm = document.getElementById("booking-form");

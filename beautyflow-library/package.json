@@ -1,6 +1,15 @@
 {
-  "name": "beautyflow-library",
+  "name": "beautyflow-app",
   "version": "1.0.0",
+  "description": "Example application for BeautyFlow Studio library",
   "main": "index.js",
-  "type": "module"
+  "type": "module",
+  "author": "Marta Gorichko",
+  "license": "MIT",
+  "dependencies": {
+    "beautyflow-library": "file:../beautyflow-library"
+  },
+  "scripts": {
+    "example-task1": "node example-task1.js"
+  }
 }

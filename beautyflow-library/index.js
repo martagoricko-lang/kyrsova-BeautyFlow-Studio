@@ -1,3 +1,4 @@
+import { memoize } from "./memoize.js";
 export const services = [
   {
     id: 1,
@@ -223,6 +224,7 @@ export const allMasters = [
 
 export const timeSlots = ["10:00", "12:00", "14:00", "16:00", "18:00"];
 
+// ===== FUNCTIONS =====
 export function getServiceById(id) {
   return services.find((service) => service.id === Number(id));
 }
@@ -260,3 +262,16 @@ export function bookAppointment(
     time,
   };
 }
+
+export { offerGenerator } from "./generators.js";
+export { consumeIteratorWithTimeout } from "./iterators.js";
+
+export function getServiceById(id) {
+  return services.find((s) => s.id === id);
+}
+
+export function getServiceById(id) {
+  return services.find((service) => service.id === Number(id));
+}
+
+export const memoizedGetServiceById = memoize(getServiceById, 10);
