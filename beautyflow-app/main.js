@@ -126,3 +126,5 @@ if (closeMenu) {
     sidebar.classList.remove("active");
   });
 }
+
+console.log(services);

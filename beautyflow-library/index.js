@@ -266,12 +266,4 @@ export function bookAppointment(
 export { offerGenerator } from "./generators.js";
 export { consumeIteratorWithTimeout } from "./iterators.js";
 
-export function getServiceById(id) {
-  return services.find((s) => s.id === id);
-}
-
-export function getServiceById(id) {
-  return services.find((service) => service.id === Number(id));
-}
-
 export const memoizedGetServiceById = memoize(getServiceById, 10);
