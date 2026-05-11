@@ -116,16 +116,25 @@ bookingForm.addEventListener("submit", (event) => {
     return;
   }
 
-  const appointment = bookAppointment(
-    clientName,
-    service.name,
-    subserviceName,
-    masterName,
-    date,
-    time,
-  );
+  const today = new Date();
+  const bookingDate = new Date(date);
 
-  const priority = subserviceName.toLowerCase().includes("vip") ? 5 : 1;
+  const diffTime = bookingDate - today;
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  const priority = 100 - diffDays;
+
+  const appointment = {
+    ...bookAppointment(
+      clientName,
+      service.name,
+      subserviceName,
+      masterName,
+      date,
+      time,
+    ),
+    priority,
+  };
 
   bookingsQueue.enqueue(appointment, priority);
 

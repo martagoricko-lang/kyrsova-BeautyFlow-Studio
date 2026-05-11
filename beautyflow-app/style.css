@@ -466,3 +466,164 @@ body {
   filter: brightness(0) saturate(100%) invert(35%) sepia(80%) saturate(500%)
     hue-rotate(320deg);
 }
+
+.cancel-booking-btn {
+  margin-top: 16px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  background-color: #d63384;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cancel-booking-btn:hover {
+  background-color: #b0256d;
+}
+
+.cancel-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+}
+
+.cancel-modal.hidden {
+  display: none;
+}
+
+.cancel-modal-content {
+  background: white;
+  padding: 32px;
+  border-radius: 24px;
+  width: 400px;
+  text-align: center;
+
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+
+  animation: modalFade 0.25s ease;
+}
+
+.cancel-modal-content h3 {
+  margin-bottom: 12px;
+  color: #d63384;
+  font-size: 28px;
+}
+
+.cancel-modal-content p {
+  color: #555;
+  margin-bottom: 28px;
+}
+
+.cancel-modal-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.confirm-btn,
+.keep-booking-btn {
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.confirm-btn {
+  background: #d63384;
+  color: white;
+}
+
+.confirm-btn:hover {
+  background: #b0256d;
+}
+
+.keep-booking-btn {
+  background: #ececec;
+}
+
+.keep-booking-btn:hover {
+  background: #dcdcdc;
+}
+
+@keyframes modalFade {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.hidden {
+  display: none;
+}
+
+.cancel-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 1000;
+}
+
+.cancel-modal-content {
+  background: white;
+  padding: 32px;
+  border-radius: 24px;
+  width: 400px;
+  text-align: center;
+
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.cancel-modal-content h3 {
+  margin-bottom: 12px;
+  font-size: 28px;
+}
+
+.cancel-modal-content p {
+  margin-bottom: 24px;
+  color: #666;
+}
+
+.cancel-modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.confirm-btn {
+  background: #d63384;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.keep-booking-btn {
+  background: #f1f1f1;
+  color: #333;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
