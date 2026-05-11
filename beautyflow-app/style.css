@@ -627,3 +627,28 @@ body {
   cursor: pointer;
   font-weight: 600;
 }
+
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.filter-btn {
+  background: #d63384;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.secondary-btn {
+  background: #ececec;
+  color: #333;
+}
+.filter-btn {
+  background: hotpink;
+}
