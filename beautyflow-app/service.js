@@ -3,6 +3,7 @@ import {
   getMastersByNames,
   timeSlots,
   bookAppointment,
+  BiDirectionalPriorityQueue,
 } from "../beautyflow-library/index.js";
 
 const params = new URLSearchParams(window.location.search);
@@ -19,6 +20,7 @@ const masterSelect = document.getElementById("master-select");
 const selectedDateInput = document.getElementById("selected-date");
 const selectedTimeSelect = document.getElementById("selected-time");
 const bookingResult = document.getElementById("booking-result");
+const bookingsQueue = new BiDirectionalPriorityQueue();
 
 if (!service) {
   servicePage.innerHTML = `<h2>Service not found</h2>`;
@@ -122,6 +124,23 @@ bookingForm.addEventListener("submit", (event) => {
     date,
     time,
   );
+
+  const priority = subserviceName.toLowerCase().includes("vip") ? 5 : 1;
+
+  bookingsQueue.enqueue(appointment, priority);
+
+  const savedBookings =
+    JSON.parse(localStorage.getItem("beautyflow-bookings")) || [];
+
+  savedBookings.push(appointment);
+
+  localStorage.setItem("beautyflow-bookings", JSON.stringify(savedBookings));
+
+  console.log("Highest priority:", bookingsQueue.peek("highest"));
+
+  console.log("Newest booking:", bookingsQueue.peek("newest"));
+
+  console.log("Oldest booking:", bookingsQueue.peek("oldest"));
 
   bookingResult.textContent = `Booked for ${appointment.clientName}`;
   bookingResult.style.color = "green";

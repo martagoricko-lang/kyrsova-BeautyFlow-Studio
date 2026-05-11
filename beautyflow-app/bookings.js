@@ -1,7 +1,8 @@
 const bookingsList = document.getElementById("bookings-list");
 
 function renderBookings() {
-  const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+  const bookings =
+    JSON.parse(localStorage.getItem("beautyflow-bookings")) || [];
 
   if (bookings.length === 0) {
     bookingsList.innerHTML = "<p>No bookings yet</p>";
