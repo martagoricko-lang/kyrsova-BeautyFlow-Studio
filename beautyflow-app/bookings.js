@@ -10,6 +10,14 @@ const futureBookingsBtn = document.getElementById("future-bookings-btn");
 
 const resetBookingsBtn = document.getElementById("reset-bookings-btn");
 
+async function loadBookings() {
+  bookingsList.innerHTML = "<p>Loading bookings...</p>";
+
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  renderBookings();
+}
+
 let bookingIndexToDelete = null;
 
 function renderBookings(bookingsToRender = null) {
@@ -104,4 +112,4 @@ resetBookingsBtn.addEventListener("click", () => {
   renderBookings();
 });
 
-renderBookings();
+loadBookings();
