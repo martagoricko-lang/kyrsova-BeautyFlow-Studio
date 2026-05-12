@@ -1,14 +1,16 @@
 import { asyncFilterPromise } from "../beautyflow-library/index.js";
+
 const cancelModal = document.getElementById("cancel-modal");
 const confirmCancelBtn = document.getElementById("confirm-cancel-btn");
 const closeCancelBtn = document.getElementById("close-cancel-btn");
 
-let bookingIndexToDelete = null;
 const bookingsList = document.getElementById("bookings-list");
 
 const futureBookingsBtn = document.getElementById("future-bookings-btn");
 
 const resetBookingsBtn = document.getElementById("reset-bookings-btn");
+
+let bookingIndexToDelete = null;
 
 function renderBookings(bookingsToRender = null) {
   const bookings =
@@ -49,19 +51,18 @@ function renderBookings(bookingsToRender = null) {
     `,
     )
     .join("");
+
+  const cancelButtons = document.querySelectorAll(".cancel-booking-btn");
+
+  cancelButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      bookingIndexToDelete = button.dataset.index;
+
+      cancelModal.classList.remove("hidden");
+    });
+  });
 }
 
-const cancelButtons = document.querySelectorAll(".cancel-booking-btn");
-
-cancelButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    bookingIndexToDelete = button.dataset.index;
-
-    cancelModal.classList.remove("hidden");
-  });
-});
-
-renderBookings();
 confirmCancelBtn.addEventListener("click", () => {
   const bookings =
     JSON.parse(localStorage.getItem("beautyflow-bookings")) || [];
@@ -72,27 +73,35 @@ confirmCancelBtn.addEventListener("click", () => {
 
   cancelModal.classList.add("hidden");
 
-  futureBookingsBtn.addEventListener("click", async () => {
-    const bookings =
-      JSON.parse(localStorage.getItem("beautyflow-bookings")) || [];
-
-    const today = new Date();
-
-    const filtered = await asyncFilterPromise(
-      bookings,
-      (booking) => new Date(booking.date) >= today,
-    );
-
-    renderBookings(filtered);
-  });
-
-  resetBookingsBtn.addEventListener("click", () => {
-    renderBookings();
-  });
-
   renderBookings();
 });
 
 closeCancelBtn.addEventListener("click", () => {
   cancelModal.classList.add("hidden");
 });
+
+futureBookingsBtn.addEventListener("click", async () => {
+  futureBookingsBtn.classList.add("active-filter");
+  resetBookingsBtn.classList.remove("active-filter");
+
+  const bookings =
+    JSON.parse(localStorage.getItem("beautyflow-bookings")) || [];
+
+  const today = new Date();
+
+  const filtered = await asyncFilterPromise(
+    bookings,
+    (booking) => new Date(booking.date) >= today,
+  );
+
+  renderBookings(filtered);
+});
+
+resetBookingsBtn.addEventListener("click", () => {
+  resetBookingsBtn.classList.add("active-filter");
+  futureBookingsBtn.classList.remove("active-filter");
+
+  renderBookings();
+});
+
+renderBookings();
