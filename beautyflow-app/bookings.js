@@ -1,4 +1,7 @@
-import { asyncFilterPromise } from "../beautyflow-library/index.js";
+import {
+  asyncFilterPromise,
+  bookingStream,
+} from "../beautyflow-library/index.js";
 
 const cancelModal = document.getElementById("cancel-modal");
 const confirmCancelBtn = document.getElementById("confirm-cancel-btn");
@@ -10,21 +13,24 @@ const futureBookingsBtn = document.getElementById("future-bookings-btn");
 
 const resetBookingsBtn = document.getElementById("reset-bookings-btn");
 
+let bookingIndexToDelete = null;
+
 async function loadBookings() {
   bookingsList.innerHTML = "<p>Loading bookings...</p>";
 
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 1200));
 
-  renderBookings();
+  const bookings =
+    JSON.parse(localStorage.getItem("beautyflow-bookings")) || [];
+
+  renderBookings(bookings);
 }
-
-let bookingIndexToDelete = null;
 
 function renderBookings(bookingsToRender = null) {
   const bookings =
-    bookingsToRender ||
-    JSON.parse(localStorage.getItem("beautyflow-bookings")) ||
-    [];
+    bookingsToRender !== null
+      ? bookingsToRender
+      : JSON.parse(localStorage.getItem("beautyflow-bookings")) || [];
 
   if (bookings.length === 0) {
     bookingsList.innerHTML = "<p>No bookings yet</p>";
@@ -38,24 +44,24 @@ function renderBookings(bookingsToRender = null) {
   bookingsList.innerHTML = bookings
     .map(
       (b, index) => `
-        <div class="booking-card">
-            <h3>${b.serviceName}</h3>
+      <div class="booking-card">
+          <h3>${b.serviceName}</h3>
 
-            <p><strong>Option:</strong> ${b.subserviceName}</p>
+          <p><strong>Option:</strong> ${b.subserviceName}</p>
 
-            <p><strong>Master:</strong> ${b.masterName}</p>
+          <p><strong>Master:</strong> ${b.masterName}</p>
 
-            <p><strong>Date:</strong> ${b.date}</p>
+          <p><strong>Date:</strong> ${b.date}</p>
 
-            <p><strong>Time:</strong> ${b.time}</p>
+          <p><strong>Time:</strong> ${b.time}</p>
 
-            <button 
-              class="cancel-booking-btn"
-              data-index="${index}"
-            >
-              Cancel booking
-            </button>
-        </div>
+          <button 
+            class="cancel-booking-btn"
+            data-index="${index}"
+          >
+            Cancel booking
+          </button>
+      </div>
     `,
     )
     .join("");
@@ -69,6 +75,43 @@ function renderBookings(bookingsToRender = null) {
       cancelModal.classList.remove("hidden");
     });
   });
+}
+
+async function loadBookingsStream(bookings) {
+  for await (const booking of bookingStream(bookings)) {
+    const index = bookings.indexOf(booking);
+
+    bookingsList.innerHTML += `
+      <div class="booking-card">
+          <h3>${booking.serviceName}</h3>
+
+          <p><strong>Option:</strong> ${booking.subserviceName}</p>
+
+          <p><strong>Master:</strong> ${booking.masterName}</p>
+
+          <p><strong>Date:</strong> ${booking.date}</p>
+
+          <p><strong>Time:</strong> ${booking.time}</p>
+
+          <button 
+            class="cancel-booking-btn"
+            data-index="${index}"
+          >
+            Cancel booking
+          </button>
+      </div>
+    `;
+
+    const cancelButtons = document.querySelectorAll(".cancel-booking-btn");
+
+    cancelButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        bookingIndexToDelete = button.dataset.index;
+
+        cancelModal.classList.remove("hidden");
+      });
+    });
+  }
 }
 
 confirmCancelBtn.addEventListener("click", () => {
@@ -102,14 +145,21 @@ futureBookingsBtn.addEventListener("click", async () => {
     (booking) => new Date(booking.date) >= today,
   );
 
-  renderBookings(filtered);
+  bookingsList.innerHTML = "";
+
+  loadBookingsStream(filtered);
 });
 
 resetBookingsBtn.addEventListener("click", () => {
   resetBookingsBtn.classList.add("active-filter");
   futureBookingsBtn.classList.remove("active-filter");
 
-  renderBookings();
+  const bookings =
+    JSON.parse(localStorage.getItem("beautyflow-bookings")) || [];
+
+  bookingsList.innerHTML = "";
+
+  loadBookingsStream(bookings);
 });
 
 loadBookings();
