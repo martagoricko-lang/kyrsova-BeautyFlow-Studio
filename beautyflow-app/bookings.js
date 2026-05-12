@@ -16,7 +16,12 @@ const resetBookingsBtn = document.getElementById("reset-bookings-btn");
 let bookingIndexToDelete = null;
 
 async function loadBookings() {
-  bookingsList.innerHTML = "<p>Loading bookings...</p>";
+  bookingsList.innerHTML = `
+  <div class="loading-state">
+    <div class="loader"></div>
+    <p>Loading bookings...</p>
+  </div>
+`;
 
   await new Promise((resolve) => setTimeout(resolve, 1200));
 
@@ -65,6 +70,13 @@ function renderBookings(bookingsToRender = null) {
     `,
     )
     .join("");
+  requestAnimationFrame(() => {
+    const cards = document.querySelectorAll(".booking-card");
+
+    cards.forEach((card) => {
+      card.classList.add("fade-in");
+    });
+  });
 
   const cancelButtons = document.querySelectorAll(".cancel-booking-btn");
 
@@ -78,29 +90,47 @@ function renderBookings(bookingsToRender = null) {
 }
 
 async function loadBookingsStream(bookings) {
+  bookings.sort((a, b) => {
+    return new Date(a.date) - new Date(b.date);
+  });
+
   for await (const booking of bookingStream(bookings)) {
     const index = bookings.indexOf(booking);
 
-    bookingsList.innerHTML += `
-      <div class="booking-card">
-          <h3>${booking.serviceName}</h3>
+    const card = document.createElement("div");
 
-          <p><strong>Option:</strong> ${booking.subserviceName}</p>
+    card.classList.add("booking-card");
 
-          <p><strong>Master:</strong> ${booking.masterName}</p>
+    card.innerHTML = `
+    <h3>${booking.serviceName}</h3>
 
-          <p><strong>Date:</strong> ${booking.date}</p>
+    <p><strong>Option:</strong> ${booking.subserviceName}</p>
 
-          <p><strong>Time:</strong> ${booking.time}</p>
+    <p><strong>Master:</strong> ${booking.masterName}</p>
 
-          <button 
-            class="cancel-booking-btn"
-            data-index="${index}"
-          >
-            Cancel booking
-          </button>
-      </div>
-    `;
+    <p><strong>Date:</strong> ${booking.date}</p>
+
+    <p><strong>Time:</strong> ${booking.time}</p>
+
+    <button 
+      class="cancel-booking-btn"
+      data-index="${index}"
+    >
+      Cancel booking
+    </button>
+`;
+
+    card.style.opacity = "0";
+    card.style.transform = "translateY(20px)";
+
+    bookingsList.appendChild(card);
+
+    setTimeout(() => {
+      card.style.transition = "all 0.4s ease";
+
+      card.style.opacity = "1";
+      card.style.transform = "translateY(0)";
+    }, 50);
 
     const cancelButtons = document.querySelectorAll(".cancel-booking-btn");
 
