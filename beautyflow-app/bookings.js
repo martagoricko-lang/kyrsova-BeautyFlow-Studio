@@ -1,6 +1,7 @@
 import {
   asyncFilterPromise,
   bookingStream,
+  EventEmitter,
 } from "../beautyflow-library/index.js";
 
 const cancelModal = document.getElementById("cancel-modal");
@@ -14,6 +15,7 @@ const futureBookingsBtn = document.getElementById("future-bookings-btn");
 const resetBookingsBtn = document.getElementById("reset-bookings-btn");
 
 let bookingIndexToDelete = null;
+const bookingEmitter = new EventEmitter();
 
 async function loadBookings() {
   bookingsList.innerHTML = `
