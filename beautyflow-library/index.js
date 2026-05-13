@@ -272,3 +272,4 @@ export { BiDirectionalPriorityQueue } from "./priorityQueue.js";
 
 export { asyncFilterCallback, asyncFilterPromise } from "./asyncFilter.js";
 export { bookingStream } from "./streams.js";
+export { EventEmitter } from "./eventEmitter.js";

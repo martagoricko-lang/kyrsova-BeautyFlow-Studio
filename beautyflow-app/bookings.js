@@ -17,6 +17,18 @@ const resetBookingsBtn = document.getElementById("reset-bookings-btn");
 let bookingIndexToDelete = null;
 const bookingEmitter = new EventEmitter();
 
+function bookingLogger(data) {
+  console.log("Booking event:", data);
+}
+
+function bookingNotification(data) {
+  console.log("Notification:", data.message);
+}
+
+bookingEmitter.subscribe("bookingCancelled", bookingLogger);
+
+bookingEmitter.subscribe("bookingCancelled", bookingNotification);
+
 async function loadBookings() {
   bookingsList.innerHTML = `
   <div class="loading-state">
