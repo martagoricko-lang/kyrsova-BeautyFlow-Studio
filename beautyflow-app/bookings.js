@@ -17,12 +17,20 @@ const resetBookingsBtn = document.getElementById("reset-bookings-btn");
 let bookingIndexToDelete = null;
 const bookingEmitter = new EventEmitter();
 
+const notification = document.getElementById("notification");
+
 function bookingLogger(data) {
   console.log("Booking event:", data);
 }
 
 function bookingNotification(data) {
-  console.log("Notification:", data.message);
+  notification.textContent = data.message;
+
+  notification.classList.remove("hidden");
+
+  setTimeout(() => {
+    notification.classList.add("hidden");
+  }, 2500);
 }
 
 bookingEmitter.subscribe("bookingCancelled", bookingLogger);
@@ -165,6 +173,10 @@ confirmCancelBtn.addEventListener("click", () => {
   bookings.splice(bookingIndexToDelete, 1);
 
   localStorage.setItem("beautyflow-bookings", JSON.stringify(bookings));
+
+  bookingEmitter.emit("bookingCancelled", {
+    message: "Booking cancelled successfully",
+  });
 
   cancelModal.classList.add("hidden");
 
