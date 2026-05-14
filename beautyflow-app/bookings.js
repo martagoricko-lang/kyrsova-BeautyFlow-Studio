@@ -2,6 +2,7 @@ import {
   asyncFilterPromise,
   bookingStream,
   EventEmitter,
+  AuthProxy,
 } from "../beautyflow-library/index.js";
 
 const cancelModal = document.getElementById("cancel-modal");
@@ -15,6 +16,7 @@ const futureBookingsBtn = document.getElementById("future-bookings-btn");
 const resetBookingsBtn = document.getElementById("reset-bookings-btn");
 
 let bookingIndexToDelete = null;
+const proxy = new AuthProxy("beautyflow-secret-token");
 const bookingEmitter = new EventEmitter();
 
 const notification = document.getElementById("notification");
@@ -218,4 +220,10 @@ resetBookingsBtn.addEventListener("click", () => {
   loadBookingsStream(bookings);
 });
 
-loadBookings();
+proxy
+  .request(() => loadBookings())
+  .catch((error) => {
+    bookingsList.innerHTML = `
+      <p>${error.message}</p>
+    `;
+  });
