@@ -5,6 +5,7 @@ export class AuthProxy {
 
   async request(action) {
     console.log("Checking authentication...");
+    console.log("Request started at:", new Date().toLocaleTimeString());
 
     await new Promise((resolve) => setTimeout(resolve, 700));
 
@@ -13,7 +14,9 @@ export class AuthProxy {
     }
 
     console.log("Token verified");
+    console.log("Request approved");
 
+    console.log("Executing protected action...");
     return action();
   }
 }
