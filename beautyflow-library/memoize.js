@@ -1,5 +1,7 @@
 export function memoize(fn, limit = 10) {
   const cache = new Map();
+  let hits = 0;
+  let misses = 0;
 
   return function (...args) {
     const key = JSON.stringify(args);
@@ -11,9 +13,15 @@ export function memoize(fn, limit = 10) {
       cache.delete(key);
       cache.set(key, value);
 
-      console.log("FROM CACHE");
+      hits++;
+
+      console.log(`FROM CACHE | Hits: ${hits}`);
       return value;
     }
+
+    misses++;
+
+    console.log(`CALCULATING | Misses: ${misses}`);
 
     const result = fn(...args);
 
@@ -23,8 +31,6 @@ export function memoize(fn, limit = 10) {
     }
 
     cache.set(key, result);
-
-    console.log("CALCULATED");
 
     return result;
   };
