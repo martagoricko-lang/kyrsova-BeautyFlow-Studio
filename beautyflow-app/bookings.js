@@ -15,6 +15,7 @@ const bookingsList = document.getElementById("bookings-list");
 const futureBookingsBtn = document.getElementById("future-bookings-btn");
 
 const resetBookingsBtn = document.getElementById("reset-bookings-btn");
+const logsOutput = document.getElementById("logs-output");
 
 let bookingIndexToDelete = null;
 const proxy = new AuthProxy("beautyflow-secret-token");
@@ -57,6 +58,13 @@ async function loadBookings() {
 }
 
 const loggedLoadBookings = loggerDecorator(loadBookings, "INFO");
+function addLog(message) {
+  logsOutput.innerHTML += `
+    <div class="log-item">
+      ${message}
+    </div>
+  `;
+}
 
 function renderBookings(bookingsToRender = null) {
   const bookings =
@@ -224,7 +232,13 @@ resetBookingsBtn.addEventListener("click", () => {
 });
 
 proxy
-  .request(() => loggedLoadBookings())
+  .request(async () => {
+    addLog("Loading bookings started");
+
+    await loggedLoadBookings();
+
+    addLog("Bookings loaded successfully");
+  })
   .catch((error) => {
     bookingsList.innerHTML = `
       <p>${error.message}</p>
