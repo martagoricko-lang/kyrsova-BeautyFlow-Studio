@@ -3,6 +3,7 @@ import {
   bookingStream,
   EventEmitter,
   AuthProxy,
+  loggerDecorator,
 } from "../beautyflow-library/index.js";
 
 const cancelModal = document.getElementById("cancel-modal");
@@ -54,6 +55,8 @@ async function loadBookings() {
 
   renderBookings(bookings);
 }
+
+const loggedLoadBookings = loggerDecorator(loadBookings, "INFO");
 
 function renderBookings(bookingsToRender = null) {
   const bookings =
@@ -221,7 +224,7 @@ resetBookingsBtn.addEventListener("click", () => {
 });
 
 proxy
-  .request(() => loadBookings())
+  .request(() => loggedLoadBookings())
   .catch((error) => {
     bookingsList.innerHTML = `
       <p>${error.message}</p>
