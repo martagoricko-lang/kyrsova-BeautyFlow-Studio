@@ -1,9 +1,10 @@
 export function memoize(fn, limit = 10) {
   const cache = new Map();
+
   let hits = 0;
   let misses = 0;
 
-  return function (...args) {
+  const memoized = function (...args) {
     const key = JSON.stringify(args);
 
     if (cache.has(key)) {
@@ -16,6 +17,7 @@ export function memoize(fn, limit = 10) {
       hits++;
 
       console.log(`FROM CACHE | Hits: ${hits}`);
+
       return value;
     }
 
@@ -27,6 +29,7 @@ export function memoize(fn, limit = 10) {
 
     if (cache.size >= limit) {
       const firstKey = cache.keys().next().value;
+
       cache.delete(firstKey);
     }
 
@@ -34,4 +37,12 @@ export function memoize(fn, limit = 10) {
 
     return result;
   };
+
+  memoized.clearCache = function () {
+    cache.clear();
+
+    console.log("Cache cleared");
+  };
+
+  return memoized;
 }
