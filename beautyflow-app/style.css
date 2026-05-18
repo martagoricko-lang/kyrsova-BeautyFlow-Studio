@@ -995,3 +995,10 @@ body {
     transform: translateY(0);
   }
 }
+.queue-info {
+  text-align: center;
+  color: #d63384;
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 24px;
+}
