@@ -2,6 +2,14 @@ import { services } from "../beautyflow-library/index.js";
 import { offerGenerator } from "../beautyflow-library/generators.js";
 import { consumeIteratorWithTimeout } from "../beautyflow-library/iterators.js";
 
+const modalOfferTitle = document.getElementById("modal-offer-title");
+
+const modalOfferDescription = document.getElementById(
+  "modal-offer-description",
+);
+
+let currentOfferData = null;
+
 const offerInfoBtn = document.getElementById("offer-info-btn");
 
 const offerModal = document.getElementById("offer-modal");
@@ -91,10 +99,11 @@ if (startOffersBtn) {
       generator,
       10,
       (offer) => {
+        currentOfferData = offer;
         promoOfferText.classList.remove("fade");
 
         setTimeout(() => {
-          promoOfferText.textContent = offer;
+          promoOfferText.textContent = offer.title;
           promoOfferText.classList.add("fade");
         }, 50);
       },
@@ -136,6 +145,12 @@ if (closeMenu) {
 console.log(services);
 
 offerInfoBtn.addEventListener("click", () => {
+  if (!currentOfferData) return;
+
+  modalOfferTitle.textContent = currentOfferData.title;
+
+  modalOfferDescription.textContent = currentOfferData.description;
+
   offerModal.classList.remove("hidden");
 });
 
