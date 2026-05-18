@@ -2,6 +2,12 @@ import { services } from "../beautyflow-library/index.js";
 import { offerGenerator } from "../beautyflow-library/generators.js";
 import { consumeIteratorWithTimeout } from "../beautyflow-library/iterators.js";
 
+const offerInfoBtn = document.getElementById("offer-info-btn");
+
+const offerModal = document.getElementById("offer-modal");
+
+const closeOfferModal = document.getElementById("close-offer-modal");
+
 const servicesList = document.getElementById("services-list");
 
 const profileBtn = document.getElementById("profile-btn");
@@ -128,3 +134,11 @@ if (closeMenu) {
 }
 
 console.log(services);
+
+offerInfoBtn.addEventListener("click", () => {
+  offerModal.classList.remove("hidden");
+});
+
+closeOfferModal.addEventListener("click", () => {
+  offerModal.classList.add("hidden");
+});
