@@ -11,6 +11,7 @@ const confirmCancelBtn = document.getElementById("confirm-cancel-btn");
 const closeCancelBtn = document.getElementById("close-cancel-btn");
 
 const bookingsList = document.getElementById("bookings-list");
+const streamStatus = document.getElementById("stream-status");
 
 const futureBookingsBtn = document.getElementById("future-bookings-btn");
 
@@ -124,13 +125,18 @@ function renderBookings(bookingsToRender = null) {
   });
 }
 
+streamStatus.textContent = "All bookings loaded";
+
 async function loadBookingsStream(bookings) {
   bookings.sort((a, b) => {
     return new Date(a.date) - new Date(b.date);
   });
 
+  streamStatus.textContent = "Streaming bookings...";
+
   for await (const booking of bookingStream(bookings)) {
     const index = bookings.indexOf(booking);
+    streamStatus.textContent = `Loaded ${index + 1} of ${bookings.length} bookings`;
 
     const card = document.createElement("div");
 
