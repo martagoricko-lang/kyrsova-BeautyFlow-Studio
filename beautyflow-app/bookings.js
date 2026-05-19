@@ -11,6 +11,10 @@ const confirmCancelBtn = document.getElementById("confirm-cancel-btn");
 const closeCancelBtn = document.getElementById("close-cancel-btn");
 
 const bookingsList = document.getElementById("bookings-list");
+
+const disableNotificationsBtn = document.getElementById(
+  "disable-notifications-btn",
+);
 const streamStatus = document.getElementById("stream-status");
 
 const futureBookingsBtn = document.getElementById("future-bookings-btn");
@@ -41,6 +45,13 @@ function bookingNotification(data) {
 bookingEmitter.subscribe("bookingCancelled", bookingLogger);
 
 bookingEmitter.subscribe("bookingCancelled", bookingNotification);
+disableNotificationsBtn.addEventListener("click", () => {
+  bookingEmitter.unsubscribe("bookingCancelled", bookingNotification);
+
+  disableNotificationsBtn.textContent = "Notifications disabled";
+
+  disableNotificationsBtn.disabled = true;
+});
 
 async function loadBookings() {
   bookingsList.innerHTML = `
